@@ -1,4 +1,5 @@
 langchain
 openai
 streamlit
-streamlit-chat
+streamlit-chat==0.0.2.2
+requests
