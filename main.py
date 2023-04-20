@@ -82,7 +82,7 @@ if st.session_state['generated']:
         message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 
 st.markdown("This tool is powered by [LangChain](https://langchain.com/) and [OpenAI](https://openai.com) and made by \
-                [@elthomate](https://twitter.com/elthomate). \n\n View Source Code on [Github](https://github.com/thomasrife/holiday-planner-streamlit/blob/main/main.py).")
+                [@elthomate](https://twitter.com/elthomate). \n\n View Source Code on [Github](https://github.com/thomasrife/pdf-file-bot/blob/main/main.py).")
 
 
 temp_dir.cleanup()
