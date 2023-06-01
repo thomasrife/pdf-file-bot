@@ -48,7 +48,7 @@ openai_api_key = get_api_key()
 def load_LLM(openai_api_key):
     """Logic for loading the chain you want to use should go here."""
     # Make sure your openai_api_key is set as an environment variable
-    llm = OpenAI(temperature=.7, openai_api_key=str(openai_api_key))
+    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
 # Storing the chat
