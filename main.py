@@ -10,25 +10,6 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 import tempfile
 
-def qa(query, file):
-    # load document
-    loader = PyPDFLoader(file)
-    documents = loader.load()
-    # split the documents into chunks
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    texts = text_splitter.split_documents(documents)
-    # select which embeddings we want to use
-    embeddings = OpenAIEmbeddings()
-    # create the vectorestore to use as the index
-    db = Chroma.from_documents(texts, embeddings)
-    # expose this index in a retriever interface
-    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
-    # create a chain to answer questions 
-    qa = RetrievalQA.from_chain_type(
-        llm=OpenAI(), chain_type="stuff", retriever=retriever, return_source_documents=False)
-    result = qa({"query": query})
-    return result['result']
-
 temp_dir = tempfile.TemporaryDirectory()
 
 # Get the path of the temporary directory
@@ -50,6 +31,25 @@ def load_LLM(openai_api_key):
     # Make sure your openai_api_key is set as an environment variable
     llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
+
+def qa(query, file):
+    # load document
+    loader = PyPDFLoader(file)
+    documents = loader.load()
+    # split the documents into chunks
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    texts = text_splitter.split_documents(documents)
+    # select which embeddings we want to use
+    embeddings = OpenAIEmbeddings()
+    # create the vectorestore to use as the index
+    db = Chroma.from_documents(texts, embeddings)
+    # expose this index in a retriever interface
+    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
+    # create a chain to answer questions 
+    qa = RetrievalQA.from_chain_type(
+        llm=load_LLM(openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
+    result = qa({"query": query})
+    return result['result']
 
 # Storing the chat
 if 'generated' not in st.session_state:
