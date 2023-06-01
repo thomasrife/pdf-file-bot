@@ -34,7 +34,7 @@ def qa(query, file):
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     texts = text_splitter.split_documents(documents)
     # select which embeddings we want to use
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(penai_api_key=openai_api_key)
     # create the vectorestore to use as the index
     db = Chroma.from_documents(texts, embeddings)
     # expose this index in a retriever interface
