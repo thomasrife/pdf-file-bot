@@ -34,6 +34,11 @@ temp_dir = tempfile.TemporaryDirectory()
 # Get the path of the temporary directory
 temp_path = temp_dir.name
 
+#Creating the chatbot interface
+st.title("File-Bot 🤖📚")
+
+st.markdown("With our AI-powered PDF reader app, you can now chat with your documents in real-time. Simply load your PDF file and engage in natural language conversation to get instant answers to your questions. \n\n ")
+
 def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
     return input_text
@@ -46,10 +51,6 @@ def load_LLM(openai_api_key):
     llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
     return llm
 
-#Creating the chatbot interface
-st.title("File-Bot 🤖📚")
-
-st.markdown("With our AI-powered PDF reader app, you can now chat with your documents in real-time. Simply load your PDF file and engage in natural language conversation to get instant answers to your questions. \n\n ")
 
 # Storing the chat
 if 'generated' not in st.session_state:
