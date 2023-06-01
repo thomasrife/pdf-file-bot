@@ -24,7 +24,7 @@ def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
     return input_text
 
-openai_key = get_api_key()
+openai_api_key = get_api_key()
 
 def load_LLM(openai_api_key):
     """Logic for loading the chain you want to use should go here."""
@@ -47,7 +47,7 @@ def qa(query, file):
     retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
     # create a chain to answer questions 
     qa = RetrievalQA.from_chain_type(
-        llm=load_LLM(openai_api_key=openai_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
+        llm=load_LLM(openai_api_key=openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
     result = qa({"query": query})
     return result['result']
 
