@@ -34,6 +34,12 @@ temp_dir = tempfile.TemporaryDirectory()
 # Get the path of the temporary directory
 temp_path = temp_dir.name
 
+def get_api_key():
+    input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
+    return input_text
+
+openai_api_key = get_api_key()
+
 def load_LLM(openai_api_key):
     """Logic for loading the chain you want to use should go here."""
     # Make sure your openai_api_key is set as an environment variable
@@ -44,12 +50,6 @@ def load_LLM(openai_api_key):
 st.title("File-Bot 🤖📚")
 
 st.markdown("With our AI-powered PDF reader app, you can now chat with your documents in real-time. Simply load your PDF file and engage in natural language conversation to get instant answers to your questions. \n\n ")
-
-def get_api_key():
-    input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
-    return input_text
-
-openai_api_key = get_api_key()
 
 # Storing the chat
 if 'generated' not in st.session_state:
@@ -76,7 +76,7 @@ if uploaded_file is not None:
 
 # We will get the user's input by calling the get_text function
 def get_text():
-    input_text = st.text_input("You: ", key="input")
+    input_text = st.text_input("Your question: ", key="input")
     return input_text
 
 user_input = get_text()
