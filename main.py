@@ -47,7 +47,7 @@ def qa(query, file):
     retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
     # create a chain to answer questions 
     qa = RetrievalQA.from_chain_type(
-        llm=load_LLM(openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
+        llm=load_LLM(openai_api_key=openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
     result = qa({"query": query})
     return result['result']
 
