@@ -26,12 +26,6 @@ def get_api_key():
 
 openai_api_key = get_api_key()
 
-def load_LLM(openai_api_key):
-    """Logic for loading the chain you want to use should go here."""
-    # Make sure your openai_api_key is set as an environment variable
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    return llm
-
 def qa(query, file):
     # load document
     loader = PyPDFLoader(file)
@@ -47,7 +41,7 @@ def qa(query, file):
     retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
     # create a chain to answer questions 
     qa = RetrievalQA.from_chain_type(
-        llm=load_LLM(openai_api_key=openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
+        llm=OpenAI(temperature=.7, openai_api_key=openai_api_key), chain_type="stuff", retriever=retriever, return_source_documents=False)
     result = qa({"query": query})
     return result['result']
 
